@@ -1,0 +1,33 @@
+{%  extends 'templates/layout.twig' %}
+{%  block content %}
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Organisation</th>
+                    <th>Employee ID</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%  for user in userList %}
+                    <tr>
+                        <td>{{ user.firstname }} {{ user.lastname }}</td>
+                        <td>{{ user.organisation }}</td>
+                        <td>{{ user.empID }}</td>
+                        {% if UserController.role < 3 %}
+                            <td><a href="user/{{ user.id }}">Amend<a/></td>
+                            {% if UserController.user.id != user.id %}
+                                <td><a href="user/delete/{{ user.id }}">Delete</a></td>
+                            {% endif %}
+                        {% endif %}
+                    </tr>
+                {%  endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}

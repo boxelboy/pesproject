@@ -1,0 +1,43 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Pes Project</a>
+        </div>
+        {%  if UserController.check %}
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {% if UserController.user.role > 2 %}
+                    <li><a href="{{ path_for('organisation') }}">Your Organisation</a></li>
+                    <li><a href="{{ path_for('user') }}">Your details</a></li>
+                {% elseif UserController.user.role == 2 %}
+                    <li><a href="{{ path_for('organisation') }}">Your Organisation</a></li>
+                {% else %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Organisations <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path_for('organisations') }}">List Organisations</a></li>
+                            <li><a href="{{ path_for('organisation.add') }}">Add Organisation</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+                {%  if UserController.user.role < 3 %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Employees <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path_for('users') }}">List Employees</a></li>
+                            <li><a href="{{ path_for('user.add') }}">Add new Employee</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+                    <li><a href="{{ path_for('logout') }}">Logout</a></li>
+            </ul>
+        </div>
+        {%  endif %}
+    </div>
+</nav>
